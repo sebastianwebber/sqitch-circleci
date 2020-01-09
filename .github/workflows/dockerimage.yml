@@ -1,0 +1,19 @@
+name: Docker Image CI
+
+on: [push]
+jobs:
+  build_publish_docker_hub:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Build and Push
+      uses: zemuldo/docker-build-push@master
+      env:
+        DOCKER_USERNAME:  ${{ secrets.DOCKER_USERNAME }}
+#           DOCKER_NAMESPACE: "docker_name_space"
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        REGISTRY_URL: "docker.io"
+      with:
+        image_name: "sebastianwebber/sqitch-circleci"
+        image_tag: "1.0.0"
